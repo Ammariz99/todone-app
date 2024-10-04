@@ -1,101 +1,136 @@
-import Image from "next/image";
+'use client';
+import React, { useState } from 'react';
+import { MdDeleteOutline } from 'react-icons/md';
+import { IoCheckmarkDone } from 'react-icons/io5';
+import { FaUndo } from 'react-icons/fa';
 
-export default function Home() {
+/**
+ * A React functional component that renders a to-do list application.
+ * Users can add tasks, mark them as complete, undo completion, and delete tasks.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered to-do list application.
+ */
+const page = () => {
+  // State management for task title
+  const [title, setTitle] = useState('');
+  // State management for task description
+  const [description, setDescription] = useState('');
+  // State management for the list of tasks
+  const [mainTask, setMainTask] = useState([]);
+
+  /**
+   * Handles the form submission, adding a new task to the list of tasks.
+   *
+   * @param {React.FormEvent} e - The form event object.
+   */
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const newTask = { title, description, isCompleted: false };
+    setMainTask([...mainTask, newTask]);
+    setTitle('');
+    setDescription('');
+    console.log(mainTask);
+  };
+  /**
+   * Handles the deletion of a task from the list.
+   *
+   * @param {number} index - The index of the task to be deleted.
+   */
+  const deleteHandler = (index) => {
+    let copyTask = [...mainTask];
+    copyTask.splice(index, 1);
+    setMainTask(copyTask);
+  };
+  /**
+   * Toggles the completion status of a task.
+   *
+   * @param {number} index - The index of the task to be marked as completed or undone.
+   */
+  const completeTaskHandler = (index) => {
+    const updatedTasks = mainTask.map((task, i) => {
+      if (i === index) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      return task;
+    });
+    setMainTask(updatedTasks);
+  };
+  // Variable to conditionally render tasks or a message when there are no tasks
+  let renderTask = <h3>No Task Available</h3>;
+
+  // Mapping over the tasks array to render each task
+  if (mainTask.length > 0) {
+    renderTask = mainTask.map((eachTask, index) => {
+      return (
+        <li className="flex justify-between items-center mb-8" key={index}>
+          <div className="flex items-center justify-between w-2/3">
+            <h3
+              className={`text-2xl font-semibold ${eachTask.isCompleted ? 'line-through text-gray-500' : ''}`}
+            >
+              {eachTask.title}
+            </h3>
+            <p
+              className={`text-2xl font-semibold  ${eachTask.isCompleted ? 'line-through text-gray-500' : ''}`}
+            >
+              {eachTask.description}
+            </p>
+          </div>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => completeTaskHandler(index)}
+              className="text-green-400 text-2xl px-2 py-2 rounded mr-4"
+            >
+              {eachTask.isCompleted ? <FaUndo /> : <IoCheckmarkDone />}
+            </button>
+            <button
+              onClick={() => {
+                deleteHandler(index);
+              }}
+              className=" text-red-400 text-2xl"
+            >
+              <MdDeleteOutline />
+            </button>
+          </div>
+        </li>
+      );
+    });
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <>
+      <h1 className="bg-black text-white font-bold text-5xl text-center p-5">
+        Todone App
+      </h1>
+      <form onSubmit={submitHandler} className="text-center">
+        <input
+          type="text"
+          placeholder="Enter Title here"
+          className="text-2xl border-zinc-800 border-4 m-8 px-4 py-2"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <input
+          type="text"
+          placeholder="Enter Description here"
+          className="text-2xl border-zinc-800 border-4 m-8 px-4 py-2"
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
+        <button className="bg-black text-white px-4 py-3 text-2xl font-bold rounded m-5">
+          Add Task
+        </button>
+      </form>
+      <hr />
+      <div className="bg-slate-200 p-8">
+        <ul>{renderTask}</ul>
+      </div>
+    </>
   );
-}
+};
+
+export default page;

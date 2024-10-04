@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Todo List Application
+
+A simple and interactive Todo List application built with React. This application allows users to add tasks, mark them as completed, undo completed tasks, and delete tasks from the list.
+
+## Features
+
+- **Add Tasks**: Enter a title and description for a new task and add it to the list.
+- **Mark as Complete**: Toggle the completion status of tasks.
+- **Undo Completion**: Restore tasks to their original state.
+- **Delete Tasks**: Remove tasks from the list.
+
+## Technologies Used
+
+- **React**: JavaScript library for building user interfaces.
+- **React Icons**: For integrating icons easily.
+- **JavaScript (ES6+)**: Modern JavaScript features used for building the application.
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure you have the following installed:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- [Node.js](https://nodejs.org/en/) (v14 or later)
+- [npm](https://www.npmjs.com/get-npm) (Node package manager)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Installation
 
-## Learn More
+1. Clone the repository:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+    https://github.com/Ammariz99/todone-app.git
