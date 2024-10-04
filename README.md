@@ -14,6 +14,8 @@ A simple and interactive Todo List application built with React. This applicatio
 - **React**: JavaScript library for building user interfaces.
 - **React Icons**: For integrating icons easily.
 - **JavaScript (ES6+)**: Modern JavaScript features used for building the application.
+- **Next.js**: A React framework for building server-rendered applications.
+- **Tailwind CSS**: A utility-first CSS framework for styling the application.
 
 ## Getting Started
 
@@ -31,4 +33,29 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-    https://github.com/Ammariz99/todone-app.git
+   git clone https://github.com/Ammariz99/todone-app.git
+   ```
+
+2. Navigate to the project directory:
+   
+   ```bash
+   cd todone-app
+   ```
+
+3. Install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+To start the development server, run:
+
+```bash
+npm run dev
+```
+
+### Accessing the Application
+
+Once the server is running, open your browser and navigate to `http://localhost:3000` to view the application in action.
